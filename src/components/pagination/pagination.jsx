@@ -1,5 +1,4 @@
 import "./pagination.css";
-import "../searchBox/search.css";
 
 export const Pagination = ({ cards, page, setPage, handldeClick }) => {
   return (
@@ -8,7 +7,7 @@ export const Pagination = ({ cards, page, setPage, handldeClick }) => {
         <div>
           {page !== 1 ? (
             <button
-              id="submit"
+              className="btn"
               onClick={(e) => {
                 setPage(page - 1);
                 handldeClick(e);
@@ -20,7 +19,7 @@ export const Pagination = ({ cards, page, setPage, handldeClick }) => {
             ""
           )}
           <button
-            id="submit"
+            className="btn"
             onClick={(e) => {
               setPage(page + 1);
               handldeClick(e);

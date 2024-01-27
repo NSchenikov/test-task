@@ -20,7 +20,7 @@ export const PopupMenu = ({ sort, onSort, handldeClick }) => {
   return (
     <div className="popup-menu">
       <button
-        id="submit"
+        className="sort-button"
         onClick={() => {
           setIsOpen(!isOpen);
         }}
