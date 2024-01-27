@@ -1,17 +1,17 @@
-// import { useEffect } from "react";
-// import { getRepos } from "../../api";
+import { useEffect } from "react";
+import { getRepos } from "../../api";
 import "./modal.css";
 
 export const Modal = ({ card, setShowModal }) => {
   const handleClose = () => {
     setShowModal(false);
   };
-  // useEffect(() => {
-  //   console.log("card", card.repos_url);
-  //   getRepos({ endpoint: card.repos_url }).then((res) => {
-  //     console.log(res);
-  //   });
-  // }, []);
+  useEffect(() => {
+    console.log("card", card.repos_url);
+    getRepos({ endpoint: card.repos_url }).then((res) => {
+      console.log("current user repos", res);
+    });
+  }, []);
   return (
     <div className="modal-backdrop">
       <div className="modal">

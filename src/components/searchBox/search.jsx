@@ -8,15 +8,13 @@ export const Search = ({ cards, setCards, setIsLoading }) => {
   let [searchFieldValue, setSearchFieldValue] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
   let [sort, onSort] = useState("");
+  const [page, setPage] = useState(1);
 
   const handldeClick = (e) => {
     e.preventDefault();
-    let endpoint;
+    let endpoint = baseUrl + searchFieldValue + `&page=${page}`;
     if (sort) {
-      endpoint =
-        baseUrl + searchFieldValue + `&page=1&sort=repositories&order=${sort}`;
-    } else {
-      endpoint = baseUrl + searchFieldValue + `&page=1`;
+      endpoint += `&sort=repositories&order=${sort}`;
     }
     // console.log(endpoint);
     setErrorMessage("");
@@ -67,7 +65,33 @@ export const Search = ({ cards, setCards, setIsLoading }) => {
           GO
         </button>
       </form>
-      <PopupMenu onSort={onSort} />
+      <PopupMenu sort={sort} onSort={onSort} handldeClick={handldeClick} />
+      {cards.length ? (
+        <div>
+          {page !== 1 ? (
+            <button
+              onClick={(e) => {
+                setPage(page - 1);
+                handldeClick(e);
+              }}
+            >
+              Previous
+            </button>
+          ) : (
+            ""
+          )}
+          <button
+            onClick={(e) => {
+              setPage(page + 1);
+              handldeClick(e);
+            }}
+          >
+            Next
+          </button>
+        </div>
+      ) : (
+        ""
+      )}
       {errorMessage ? <div style={{ color: "red" }}>{errorMessage}</div> : ""}
     </div>
   );
