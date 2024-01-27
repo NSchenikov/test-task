@@ -1,10 +1,6 @@
 import axios from "axios";
 
-export const baseUrl = "https://api.github.com/search/users?q=";
-
-export async function getCards({ q }) {
-  const endpoint = `${baseUrl}${q}`;
-  // console.log("endpoint", endpoint);
+export async function getCards({ endpoint }) {
   try {
     const response = await axios.get(endpoint, {
       headers: {
@@ -13,21 +9,19 @@ export async function getCards({ q }) {
     });
     return response.data;
   } catch (error) {
-    // throw new Error("ошибка сервера");
     console.log(error);
   }
 }
 
-export async function getRepos({ endpoint }) {
-  try {
-    const response = await axios.get(endpoint, {
-      headers: {
-        accept: "application/vnd.github+json",
-      },
-    });
-    return response.data.length;
-  } catch (error) {
-    // throw new Error("ошибка сервера");
-    console.log(error);
-  }
-}
+// export async function getRepos({ endpoint }) {
+//   try {
+//     const response = await axios.get(endpoint, {
+//       headers: {
+//         accept: "application/vnd.github+json",
+//       },
+//     });
+//     return response.data;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// }
