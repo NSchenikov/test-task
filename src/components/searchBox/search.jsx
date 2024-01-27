@@ -7,8 +7,8 @@ export const Search = ({ cards, setCards }) => {
 
   const handldeClick = (e) => {
     e.preventDefault();
-    // console.log(searchFieldValue);
-    getCards({ searchFieldValue })
+    // console.log("searchValue", searchFieldValue);
+    getCards({ q: searchFieldValue })
       .then((res) => {
         setCards(res.items);
         console.log(res.items);
