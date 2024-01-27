@@ -17,3 +17,17 @@ export async function getCards({ q }) {
     console.log(error);
   }
 }
+
+export async function getRepos({ endpoint }) {
+  try {
+    const response = await axios.get(endpoint, {
+      headers: {
+        accept: "application/vnd.github+json",
+      },
+    });
+    return response.data.length;
+  } catch (error) {
+    // throw new Error("ошибка сервера");
+    console.log(error);
+  }
+}

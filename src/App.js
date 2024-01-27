@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className="App">
-      <Search setCards={setCards} setIsLoading={setIsLoading} />
+      <Search cards={cards} setCards={setCards} setIsLoading={setIsLoading} />
       {cards ? (
         <Cards
           cards={cards}

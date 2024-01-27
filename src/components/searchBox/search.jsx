@@ -1,37 +1,49 @@
-import { useState } from "react";
-import { getCards } from "../../api";
+import { useEffect, useState } from "react";
+import { getCards, getRepos } from "../../api";
 import "./search.css";
 
-export const Search = ({ setCards, setIsLoading }) => {
+export const Search = ({ cards, setCards, setIsLoading }) => {
   let [searchFieldValue, setSearchFieldValue] = useState("");
   let [errorMessage, setErrorMessage] = useState("");
+
+  const addReposNum = async (array, reposNum) => {
+    const updatedArray = await Promise.all(
+      array.map(async (obj) => {
+        const repos = await getRepos({ endpoint: obj.repos_url });
+        return { ...obj, [reposNum]: repos };
+      })
+    );
+    setCards(updatedArray);
+  };
 
   const handldeClick = (e) => {
     e.preventDefault();
     setErrorMessage("");
     setIsLoading(true);
-    // console.log("searchValue", searchFieldValue);
     if (searchFieldValue) {
       setCards([]);
       getCards({ q: searchFieldValue })
         .then((res) => {
           setCards(res.items);
-          console.log(res.items);
-          setIsLoading(false);
           if (!res.items.length) {
-            setCards([]);
             setErrorMessage("No results");
+            setIsLoading(false);
+          } else {
+            addReposNum(res.items, "reposNum"); // Вызываем addReposNum после установки состояния cards
           }
         })
         .catch(() => {
           setIsLoading(false);
-          setErrorMessage("Something get wrong. Please, try again later");
+          setErrorMessage("Something went wrong. Please, try again later");
         });
     } else {
       setIsLoading(false);
-      setErrorMessage("Enter text value into search field");
+      setErrorMessage("Enter text value into the search field");
     }
   };
+  useEffect(() => {
+    console.log(cards);
+  }, [cards]);
   return (
     <div>
       <form className="form-wrapper">

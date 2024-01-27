@@ -11,7 +11,7 @@ export const Modal = ({ card, setShowModal }) => {
         <div className="modal-body">
           <div className="modal-name">{card.login}</div>
           <div className="modal-role">{card.id}</div>
-          <div className="skills">{card.repos_url}</div>
+          <div className="skills">{card.reposNum}</div>
         </div>
         <button className="close-btn" onClick={() => handleClose()}>
           Close
