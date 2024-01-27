@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getCards } from "../../api";
 import { PopupMenu } from "../popup-menu/popupMenu";
 import "./search.css";
+import { Pagination } from "../pagination/pagination";
 
 export const Search = ({ cards, setCards, setIsLoading }) => {
   let baseUrl = "https://api.github.com/search/users?q=";
@@ -66,32 +67,12 @@ export const Search = ({ cards, setCards, setIsLoading }) => {
         </button>
       </form>
       <PopupMenu sort={sort} onSort={onSort} handldeClick={handldeClick} />
-      {cards.length ? (
-        <div>
-          {page !== 1 ? (
-            <button
-              onClick={(e) => {
-                setPage(page - 1);
-                handldeClick(e);
-              }}
-            >
-              Previous
-            </button>
-          ) : (
-            ""
-          )}
-          <button
-            onClick={(e) => {
-              setPage(page + 1);
-              handldeClick(e);
-            }}
-          >
-            Next
-          </button>
-        </div>
-      ) : (
-        ""
-      )}
+      <Pagination
+        cards={cards}
+        page={page}
+        setPage={setPage}
+        handldeClick={handldeClick}
+      />
       {errorMessage ? <div style={{ color: "red" }}>{errorMessage}</div> : ""}
     </div>
   );
