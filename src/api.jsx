@@ -13,6 +13,7 @@ export async function getCards({ q }) {
     });
     return response.data;
   } catch (error) {
-    throw new Error("ошибка сервера");
+    // throw new Error("ошибка сервера");
+    console.log(error);
   }
 }
